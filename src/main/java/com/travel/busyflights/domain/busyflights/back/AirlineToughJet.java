@@ -32,7 +32,7 @@ public class AirlineToughJet implements Airline{
         return "Fligths ToughJet";
     }
 
-    private <T>List<T> getToughJetFligths(ToughJetRequest myRequest) {
+    public <T>List<T> getToughJetFligths(ToughJetRequest myRequest) {
         List<T> fligths = new ArrayList<>();
         TcpClient tcpClient = TcpClient.create().option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
                 .doOnConnected(connection -> {
@@ -40,14 +40,6 @@ public class AirlineToughJet implements Airline{
                     connection.addHandlerLast(new WriteTimeoutHandler(5000, TimeUnit.MILLISECONDS));
                 });
         try {
-                 /*
-            WebClient client = webClientBuilder
-                    .clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient)))
-                    .baseUrl("http://localhost:8080/crazyairapi")
-                    .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).defaultUriVariables(
-                            Collections.singletonMap("url", "http://localhost:8080/crazyairapi"))
-                    .build();
-             */
             WebClient webClient = WebClient.builder()
                     .baseUrl("http://localhost:8080/toughjetapi")
                     .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("crazyairapi")
 public class CrazyAirRestController {
+
     @PostMapping("fligths")
     public List<CrazyAirResponse> getFligths(@RequestBody CrazyAirRequest myRequest)
     {

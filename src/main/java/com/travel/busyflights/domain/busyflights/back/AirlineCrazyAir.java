@@ -34,7 +34,7 @@ public class AirlineCrazyAir implements Airline {
         return "Fligths CrazyAir";
     }
 
-    private <T> List<T> getCrazyAirFligths(CrazyAirRequest myRequest) {
+    public <T> List<T> getCrazyAirFligths(CrazyAirRequest myRequest) {
         List<T> fligths = new ArrayList<>();
         TcpClient tcpClient = TcpClient.create().option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
                 .doOnConnected(connection -> {
