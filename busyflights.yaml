@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bd-busyflights
+spec:
+  selector:
+    matchLabels:
+      app: bd-busyflights
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: bd-busyflights
+    spec:
+      containers:
+        - name: bd-busyflights
+          image: pelsan/otumbamicro-busyflights:latest
+          env:
+            - name: SPRING_PROFILE
+              value: dev
+            - name: SPRING_APPLICATION_JSON
+              valueFrom:
+                configMapKeyRef:
+                  name: spring-config-bf
+                  key: dev-config.json
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bd-busyflights-service
+spec:
+  selector:
+    app: bd-busyflights
+  ports:
+    - name: http
+      port: 8089
+      nodePort: 31089
+  type: NodePort
